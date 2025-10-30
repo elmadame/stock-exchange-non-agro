@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Stock Exchange Non Agro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #e5e5e5;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #111;
+            border-bottom: 1px solid #222;
+            padding: 1rem 2rem;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 0.25rem;
+        }
+
+        .header-subtitle {
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #999;
+            font-size: 0.875rem;
+        }
+
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 0.375rem;
+            color: #e5e5e5;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-danger {
+            background: #dc2626;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        .btn-success {
+            background: #16a34a;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #15803d;
+        }
+
+        .stock-list, .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .stock-item, .news-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 0.375rem;
+        }
+
+        .stock-info {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+        }
+
+        .news-info {
+            flex: 1;
+        }
+
+        .news-title-text {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .news-meta {
+            font-size: 0.75rem;
+            color: #666;
+        }
+
+        .priority-badge {
+            padding: 0.125rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.625rem;
+            font-weight: bold;
+            margin-left: 0.5rem;
+        }
+
+        .priority-high { background: #dc2626; }
+        .priority-medium { background: #ca8a04; }
+        .priority-low { background: #2563eb; }
+
+        .btn-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 0.375rem;
+            margin-bottom: 1rem;
+        }
+
+        .alert-success {
+            background: #16a34a;
+            color: white;
+        }
+
+        .alert-error {
+            background: #dc2626;
+            color: white;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 0.375rem;
+            padding: 1rem;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>🔧 Admin Panel</h1>
+        <div class="header-subtitle">Stock Exchange Non Agro Management</div>
+    </header>
+
+    <div class="container">
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-label">Total Stocks</div>
+                <div class="stat-value" id="totalStocks">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total News</div>
+                <div class="stat-value" id="totalNews">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Votes</div>
+                <div class="stat-value" id="totalVotes">0</div>
+            </div>
+        </div>
+
+        <!-- Manage Stocks -->
+        <div class="section">
+            <h2 class="section-title">📈 Manage Stocks</h2>
+            
+            <div class="form-group">
+                <label class="form-label">Add New Stock</label>
+                <div style="display: flex; gap: 0.5rem;">
+                    <input 
+                        type="text" 
+                        class="form-input" 
+                        id="newStockSymbol" 
+                        placeholder="Enter stock symbol (e.g., AAPL)"
+                        style="flex: 1;"
+                    />
+                    <button class="btn btn-success" onclick="addStock()">Add Stock</button>
+                </div>
+            </div>
+
+            <div id="stockAlert"></div>
+
+            <div class="stock-list" id="stockList">
+                <div class="loading">Loading stocks...</div>
+            </div>
+        </div>
+
+        <!-- Manage News -->
+        <div class="section">
+            <h2 class="section-title">📰 Manage News</h2>
+            
+            <div class="form-group">
+                <label class="form-label">Title</label>
+                <input type="text" class="form-input" id="newsTitle" placeholder="News title" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Content</label>
+                <textarea class="form-textarea" id="newsContent" placeholder="News content"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Author</label>
+                <input type="text" class="form-input" id="newsAuthor" placeholder="Author name" value="Market Admin" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Priority</label>
+                <select class="form-select" id="newsPriority">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+
+            <button class="btn btn-primary" onclick="addNews()">Publish News</button>
+
+            <div id="newsAlert"></div>
+
+            <div class="news-list" id="newsList">
+                <div class="loading">Loading news...</div>
+            </div>
+        </div>
+
+        <!-- Reset Data -->
+        <div class="section">
+            <h2 class="section-title">⚠️ Danger Zone</h2>
+            <p style="color: #666; margin-bottom: 1rem;">These actions cannot be undone.</p>
+            
+            <div class="btn-group">
+                <button class="btn btn-danger" onclick="resetAllPoints()">Reset All Points</button>
+                <button class="btn btn-danger" onclick="resetDailyChanges()">Reset Daily Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDV0ByPMOrWJFXappPoi7ldtspfIahP2T8",
+            authDomain: "stockmarketnonagro.firebaseapp.com",
+            databaseURL: "https://stockmarketnonagro-default-rtdb.firebaseio.com",
+            projectId: "stockmarketnonagro",
+            storageBucket: "stockmarketnonagro.firebasestorage.app",
+            messagingSenderId: "641813689653",
+            appId: "1:641813689653:web:04dba895d6b647a9f9087c",
+            measurementId: "G-2MWEY29BLP"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Show alert
+        function showAlert(elementId, message, type) {
+            const alertEl = document.getElementById(elementId);
+            alertEl.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+            setTimeout(() => {
+                alertEl.innerHTML = '';
+            }, 3000);
+        }
+
+        // Add Stock
+        async function addStock() {
+            const symbol = document.getElementById('newStockSymbol').value.trim().toUpperCase();
+            
+            if (!symbol) {
+                showAlert('stockAlert', 'Please enter a stock symbol', 'error');
+                return;
+            }
+
+            const stocksRef = database.ref('stocks/' + symbol);
+            const snapshot = await stocksRef.once('value');
+            
+            if (snapshot.exists()) {
+                showAlert('stockAlert', 'Stock already exists!', 'error');
+                return;
+            }
+
+            await stocksRef.set({
+                symbol: symbol,
+                points: 0,
+                dailyChange: 0
+            });
+
+            document.getElementById('newStockSymbol').value = '';
+            showAlert('stockAlert', `Stock ${symbol} added successfully!`, 'success');
+        }
+
+        // Delete Stock
+        async function deleteStock(symbol) {
+            if (!confirm(`Are you sure you want to delete ${symbol}? This cannot be undone.`)) {
+                return;
+            }
+
+            await database.ref('stocks/' + symbol).remove();
+            showAlert('stockAlert', `Stock ${symbol} deleted successfully!`, 'success');
+        }
+
+        // Setup stocks listener
+        function setupStocksListener() {
+            const stocksRef = database.ref('stocks');
+            stocksRef.on('value', (snapshot) => {
+                const stockData = snapshot.val();
+                const listEl = document.getElementById('stockList');
+                
+                if (!stockData) {
+                    listEl.innerHTML = '<p style="color: #666;">No stocks available</p>';
+                    document.getElementById('totalStocks').textContent = '0';
+                    return;
+                }
+
+                const stocks = Object.values(stockData);
+                stocks.sort((a, b) => b.points - a.points);
+                
+                document.getElementById('totalStocks').textContent = stocks.length;
+
+                listEl.innerHTML = stocks.map(stock => `
+                    <div class="stock-item">
+                        <div class="stock-info">
+                            ${stock.symbol} 
+                            <span style="color: #666; font-weight: normal;">
+                                (${stock.points} pts, ${stock.dailyChange >= 0 ? '+' : ''}${stock.dailyChange} daily)
+                            </span>
+                        </div>
+                        <button class="btn btn-danger" onclick="deleteStock('${stock.symbol}')">Delete</button>
+                    </div>
+                `).join('');
+            });
+        }
+
+        // Add News
+        async function addNews() {
+            const title = document.getElementById('newsTitle').value.trim();
+            const content = document.getElementById('newsContent').value.trim();
+            const author = document.getElementById('newsAuthor').value.trim();
+            const priority = document.getElementById('newsPriority').value;
+
+            if (!title || !content) {
+                showAlert('newsAlert', 'Please fill in title and content', 'error');
+                return;
+            }
+
+            const newsRef = database.ref('news');
+            await newsRef.push({
+                title,
+                content,
+                author: author || 'Market Admin',
+                priority,
+                timestamp: Date.now()
+            });
+
+            document.getElementById('newsTitle').value = '';
+            document.getElementById('newsContent').value = '';
+            showAlert('newsAlert', 'News published successfully!', 'success');
+        }
+
+        // Delete News
+        async function deleteNews(newsId) {
+            if (!confirm('Are you sure you want to delete this news?')) {
+                return;
+            }
+
+            await database.ref('news/' + newsId).remove();
+            showAlert('newsAlert', 'News deleted successfully!', 'success');
+        }
+
+        // Setup news listener
+        function setupNewsListener() {
+            const newsRef = database.ref('news');
+            newsRef.on('value', (snapshot) => {
+                const newsData = snapshot.val();
+                const listEl = document.getElementById('newsList');
+                
+                if (!newsData) {
+                    listEl.innerHTML = '<p style="color: #666;">No news available</p>';
+                    document.getElementById('totalNews').textContent = '0';
+                    return;
+                }
+
+                const newsArray = Object.entries(newsData).map(([key, value]) => ({
+                    id: key,
+                    ...value
+                }));
+                newsArray.sort((a, b) => b.timestamp - a.timestamp);
+                
+                document.getElementById('totalNews').textContent = newsArray.length;
+
+                listEl.innerHTML = newsArray.map(news => `
+                    <div class="news-item">
+                        <div class="news-info">
+                            <div class="news-title-text">
+                                ${news.title}
+                                <span class="priority-badge priority-${news.priority}">${news.priority.toUpperCase()}</span>
+                            </div>
+                            <div class="news-meta">
+                                ${new Date(news.timestamp).toLocaleString()} • By ${news.author}
+                            </div>
+                        </div>
+                        <button class="btn btn-danger" onclick="deleteNews('${news.id}')">Delete</button>
+                    </div>
+                `).join('');
+            });
+        }
+
+        // Setup votes listener
+        function setupVotesListener() {
+            const votesRef = database.ref('votes');
+            votesRef.on('value', (snapshot) => {
+                const votesData = snapshot.val();
+                if (votesData) {
+                    document.getElementById('totalVotes').textContent = Object.keys(votesData).length;
+                } else {
+                    document.getElementById('totalVotes').textContent = '0';
+                }
+            });
+        }
+
+        // Reset all points
+        async function resetAllPoints() {
+            if (!confirm('Are you sure you want to reset ALL points to 0? This cannot be undone.')) {
+                return;
+            }
+
+            const stocksRef = database.ref('stocks');
+            const snapshot = await stocksRef.once('value');
+            const stockData = snapshot.val();
+
+            if (stockData) {
+                Object.keys(stockData).forEach(symbol => {
+                    stockData[symbol].points = 0;
+                    stockData[symbol].dailyChange = 0;
+                });
+                await stocksRef.set(stockData);
+                alert('All points have been reset to 0');
+            }
+        }
+
+        // Reset daily changes
+        async function resetDailyChanges() {
+            if (!confirm('Are you sure you want to reset all daily changes to 0?')) {
+                return;
+            }
+
+            const stocksRef = database.ref('stocks');
+            const snapshot = await stocksRef.once('value');
+            const stockData = snapshot.val();
+
+            if (stockData) {
+                Object.keys(stockData).forEach(symbol => {
+                    stockData[symbol].dailyChange = 0;
+                });
+                await stocksRef.set(stockData);
+                alert('All daily changes have been reset to 0');
+            }
+        }
+
+        // Initialize
+        setupStocksListener();
+        setupNewsListener();
+        setupVotesListener();
+    </script>
+</body>
+</html>
