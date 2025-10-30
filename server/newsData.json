@@ -1,0 +1,12 @@
+{
+  "news": [
+    {
+      "id": "1",
+      "title": "Welcome to Stock Exchange Non Agro",
+      "content": "The market is now open for daily voting. Rank your top 10 stocks to influence the leaderboard!",
+      "author": "Market Admin",
+      "timestamp": "2025-10-30T08:00:00.000Z",
+      "priority": "high"
+    }
+  ]
+}

@@ -1,0 +1,157 @@
+{
+  "stocks": [
+    {
+      "symbol": "ILYS",
+      "points": 0,
+      "dailyChange": 0,
+      "previousPoints": 0
+    },
+    {
+      "symbol": "KRME",
+      "points": 0,
+      "dailyChange": 0,
+      "previousPoints": 0
+    },
+    {
+      "symbol": "KLA",
+      "points": 0,
+      "dailyChange": 0,
+      "previousPoints": 0
+    },
+    {
+      "symbol": "LRA",
+      "points": 0,
+      "dailyChange": 0,
+      "previousPoints": 0
+    },
+    {
+      "symbol": "LSA-R",
+      "points": 0,
+      "dailyChange": 0,
+      "previousPoints": 0
+    },
+    {
+      "symbol": "LSA",
+      "points": 0,
+      "dailyChange": 0,
+      "previousPoints": 0
+    },
+    {
+      "symbol": "MLSA",
+      "points": 0,
+      "dailyChange": 0,
+      "previousPoints": 0
+    },
+    {
+      "symbol": "MRA",
+      "points": 0,
+      "dailyChange": 0,
+      "previousPoints": 0
+    },
+    {
+      "symbol": "SRTA",
+      "points": 0,
+      "dailyChange": 0,
+      "previousPoints": 0
+    },
+    {
+      "symbol": "SRAPPLY",
+      "points": 0,
+      "dailyChange": 0,
+      "previousPoints": 0
+    },
+    {
+      "symbol": "ATHE",
+      "points": -2,
+      "dailyChange": -1,
+      "previousPoints": -1
+    },
+    {
+      "symbol": "RGNA",
+      "points": -4,
+      "dailyChange": -2,
+      "previousPoints": -2
+    },
+    {
+      "symbol": "CCI",
+      "points": -6,
+      "dailyChange": -3,
+      "previousPoints": -3
+    },
+    {
+      "symbol": "MTZA",
+      "points": -8,
+      "dailyChange": -4,
+      "previousPoints": -4
+    },
+    {
+      "symbol": "JNAK",
+      "points": -10,
+      "dailyChange": -5,
+      "previousPoints": -5
+    },
+    {
+      "symbol": "MLIS",
+      "points": -12,
+      "dailyChange": -6,
+      "previousPoints": -6
+    },
+    {
+      "symbol": "MRRT",
+      "points": -14,
+      "dailyChange": -7,
+      "previousPoints": -7
+    }
+  ],
+  "lastProcessedDate": "2025-10-30",
+  "dailyVotes": [
+    {
+      "sessionId": "3890888638c6b72630ba480c5758231995348f286b80ace68cb42404e8bd18a2",
+      "rankings": [
+        "ILYS",
+        "KLA",
+        "LRA",
+        "MLSA",
+        "LSA-R",
+        "KRME",
+        "MRA",
+        "RGNA",
+        "SRTA",
+        "ATHE"
+      ],
+      "timestamp": "2025-10-30T15:30:56.578Z"
+    },
+    {
+      "sessionId": "bdf935764d7da9b38ff495ed6ef4645c05dab019078cc189c5283ebf0c4c4a8b",
+      "rankings": [
+        "ILYS",
+        "LSA",
+        "KLA",
+        "LSA-R",
+        "RGNA",
+        "CCI",
+        "SRAPPLY",
+        "KRME",
+        "MLSA",
+        "MTZA"
+      ],
+      "timestamp": "2025-10-30T16:05:24.400Z"
+    },
+    {
+      "sessionId": "dea81e7716609371362e7a7f250d6d4707e722ef3c795497f12367143ce22be8",
+      "rankings": [
+        "LSA-R",
+        "SRTA",
+        "KRME",
+        "KLA",
+        "CCI",
+        "RGNA",
+        "JNAK",
+        "MRA",
+        "LRA",
+        "ILYS"
+      ],
+      "timestamp": "2025-10-30T16:06:41.960Z"
+    }
+  ]
+}
