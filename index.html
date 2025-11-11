@@ -472,7 +472,7 @@
                     <p class="card-description">Rank your top 10 stocks • 8am-2pm Mexico City time</p>
                     
                     <p style="text-align: center; margin-bottom: 1rem; color: #666;">
-                        Market closes at 2:00 PM
+                        Market closes at 5:00 PM
                     </p>
 
                     <button class="btn btn-primary" id="voteBtn">Submit Your Vote</button>
@@ -577,7 +577,7 @@
             const now = new Date();
             const mexicoTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/Mexico_City' }));
             const hour = mexicoTime.getHours();
-            return hour >= 8 && hour < 14;
+            return hour >= 8 && hour < 17;
         }
 
         // Update time and market status
